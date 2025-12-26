@@ -2,9 +2,16 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- 🔑 CLAVE PARA QUE FUNCIONE EN CELULAR -->
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
   <title>Catálogo Profesional</title>
+
+  <!-- CSS -->
   <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
 
@@ -26,14 +33,16 @@
     <p>© Catálogo dinámico con Google Drive</p>
   </footer>
 
-  <!-- Visor de imágenes -->
+  <!-- ===== VISOR DE IMÁGENES ===== -->
   <div id="viewer" class="viewer hidden">
     <button class="close" onclick="closeViewer()">✕</button>
     <button class="nav left" onclick="prevImage()">‹</button>
-    <img id="viewerImg" />
+    <img id="viewerImg" alt="Imagen del catálogo">
     <button class="nav right" onclick="nextImage()">›</button>
   </div>
 
+  <!-- JS (SIEMPRE AL FINAL) -->
   <script src="app.js"></script>
+
 </body>
 </html>
