@@ -1,35 +1,75 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbyfW_TpkpBrRvJLeKeZfBuCJXjKKDXiORng98GpRHMZG24kkbmJbZTr6FNS46V0Wxuv/exec";
 
-const photos = document.getElementById("photos");
+const albumsDiv = document.getElementById("albums");
+const photosDiv = document.getElementById("photos");
+const subtitle = document.getElementById("subtitle");
+const backBtn = document.getElementById("backBtn");
+
 const viewer = document.getElementById("viewer");
 const viewerImg = document.getElementById("viewerImg");
 
-let items = [];
-let index = 0;
+let dataGlobal = [];
+let currentImages = [];
+let currentIndex = 0;
 
-/* BLOQUEO VISOR */
-document.addEventListener("DOMContentLoaded", () => {
-  viewer.classList.add("hidden");
-});
-
-/* CARGAR FOTOS */
 fetch(API_URL)
   .then(r => r.json())
   .then(data => {
-    items = data.items;
-
-    items.forEach((f, i) => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `<img src="${f.img}" onclick="openViewer(${i})">`;
-      photos.appendChild(card);
-    });
+    dataGlobal = data;
+    renderAlbums();
   });
 
-/* VISOR */
-function openViewer(i) {
-  index = i;
-  viewerImg.src = items[index].img;
+function renderAlbums() {
+  albumsDiv.innerHTML = "";
+  photosDiv.classList.add("hidden");
+  albumsDiv.classList.remove("hidden");
+
+  subtitle.textContent = "Selecciona un álbum";
+  backBtn.style.display = "none";
+
+  dataGlobal.forEach(album => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${album.portada}">
+      <div class="info">${album.album}</div>
+    `;
+    card.onclick = () => openAlbum(album);
+    albumsDiv.appendChild(card);
+  });
+}
+
+function openAlbum(album) {
+  albumsDiv.classList.add("hidden");
+  photosDiv.classList.remove("hidden");
+  photosDiv.innerHTML = "";
+
+  subtitle.textContent = album.album;
+  backBtn.style.display = "inline-block";
+
+  currentImages = album.items;
+
+  album.items.forEach((item, index) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${item.img}">
+      <div class="info">${item.nombre}</div>
+    `;
+    card.onclick = () => openViewer(index);
+    photosDiv.appendChild(card);
+  });
+}
+
+function goBack() {
+  renderAlbums();
+}
+
+/* ===== VISOR ===== */
+
+function openViewer(index) {
+  currentIndex = index;
+  viewerImg.src = currentImages[currentIndex].img;
   viewer.classList.remove("hidden");
 }
 
@@ -37,12 +77,13 @@ function closeViewer() {
   viewer.classList.add("hidden");
 }
 
-function next() {
-  index = (index + 1) % items.length;
-  viewerImg.src = items[index].img;
+function nextImage() {
+  currentIndex = (currentIndex + 1) % currentImages.length;
+  viewerImg.src = currentImages[currentIndex].img;
 }
 
-function prev() {
-  index = (index - 1 + items.length) % items.length;
-  viewerImg.src = items[index].img;
+function prevImage() {
+  currentIndex =
+    (currentIndex - 1 + currentImages.length) % currentImages.length;
+  viewerImg.src = currentImages[currentIndex].img;
 }
