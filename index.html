@@ -3,46 +3,44 @@
 <head>
   <meta charset="UTF-8" />
 
-  <!-- 🔑 CLAVE PARA QUE FUNCIONE EN CELULAR -->
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- 🔑 ESTO ES CLAVE PARA CELULAR -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Catálogo Profesional</title>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="styles.css">
-
 </head>
 <body>
 
-  <header>
-    <h1>📸 Catálogo</h1>
-    <p id="subtitle">Selecciona un álbum</p>
-    <button id="backBtn" onclick="goBack()">← Volver</button>
-  </header>
+<header class="top">
+  <h1>📸 Catálogo</h1>
+</header>
 
-  <main>
-    <!-- Álbumes -->
-    <div id="albums" class="grid"></div>
+<main>
+  <!-- GRID DE FOTOS -->
+  <div id="photos" class="grid"></div>
+</main>
 
-    <!-- Fotos -->
-    <div id="photos" class="grid hidden"></div>
-  </main>
+<!-- BOTÓN FLOTANTE -->
+<button id="openAlbums" class="album-btn">📂 Álbumes</button>
 
-  <footer>
-    <p>© Catálogo dinámico con Google Drive</p>
-  </footer>
-
-  <!-- ===== VISOR DE IMÁGENES ===== -->
-  <div id="viewer" class="viewer hidden">
-    <button class="close" onclick="closeViewer()">✕</button>
-    <button class="nav left" onclick="prevImage()">‹</button>
-    <img id="viewerImg" alt="Imagen del catálogo">
-    <button class="nav right" onclick="nextImage()">›</button>
+<!-- MODAL DE ÁLBUMES -->
+<div id="albumModal" class="modal hidden">
+  <div class="modal-box">
+    <h2>Selecciona un álbum</h2>
+    <div id="albumList" class="album-list"></div>
+    <button id="closeModal" class="close-btn">Cerrar</button>
   </div>
+</div>
 
-  <!-- JS (SIEMPRE AL FINAL) -->
-  <script src="app.js"></script>
+<!-- VISOR -->
+<div id="viewer" class="viewer hidden">
+  <button class="nav left" onclick="prev()">‹</button>
+  <img id="viewerImg">
+  <button class="nav right" onclick="next()">›</button>
+  <button class="close-viewer" onclick="closeViewer()">✕</button>
+</div>
 
+<script src="app.js"></script>
 </body>
 </html>
