@@ -2,47 +2,35 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-
-  <!-- 🔑 CLAVE PARA CELULAR -->
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
   <title>Catálogo Marinillos</title>
-
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <header>
-    <h1>📸 Catálogo Marinillos</h1>
-    <p id="subtitle">Selecciona un álbum</p>
+<header>
+  <h1>📸 Catálogo Marinillos</h1>
+  <p id="subtitle">Selecciona un álbum</p>
+  <button id="backBtn" onclick="goBack()">← Volver</button>
+</header>
 
-    <!-- BOTÓN ATRÁS -->
-    <button id="backBtn" onclick="goBack()" class="hidden">
-      ← Atrás
-    </button>
-  </header>
+<main>
+  <div id="albums" class="grid"></div>
+  <div id="photos" class="grid hidden"></div>
+</main>
 
-  <main>
-    <!-- Álbumes -->
-    <div id="albums" class="grid"></div>
+<footer>
+  <p>© Catálogo dinámico con Google Drive</p>
+</footer>
 
-    <!-- Fotos -->
-    <div id="photos" class="grid hidden"></div>
-  </main>
+<div id="viewer" class="viewer hidden">
+  <button class="close" onclick="closeViewer()">✕</button>
+  <button class="nav left" onclick="prevImage()">‹</button>
+  <img id="viewerImg" alt="">
+  <button class="nav right" onclick="nextImage()">›</button>
+</div>
 
-  <footer>
-    <p>© Catálogo Marinillos</p>
-  </footer>
-
-  <!-- VISOR -->
-  <div id="viewer" class="viewer hidden">
-    <button class="close-viewer" onclick="closeViewer()">✕</button>
-    <button class="nav left" onclick="prevImage()">‹</button>
-    <img id="viewerImg" alt="Imagen del catálogo">
-    <button class="nav right" onclick="nextImage()">›</button>
-  </div>
-
-  <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
