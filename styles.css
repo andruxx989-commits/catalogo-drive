@@ -6,13 +6,12 @@
   padding: 0;
 }
 
-/* ===== COLORES BASE ===== */
+/* ===== PALETA ===== */
 :root {
   --verde-oscuro: #0f2f25;
   --verde: #1f7a63;
   --verde-claro: #2fa68a;
   --rojo: #b91c1c;
-  --rojo-suave: #dc2626;
   --fondo: #0b1f18;
   --card: #12362b;
   --texto: #f1f5f4;
@@ -23,17 +22,14 @@ body {
   background: linear-gradient(180deg, var(--verde-oscuro), var(--fondo));
   color: var(--texto);
   font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
 }
 
 /* ===== HEADER ===== */
 .top {
   padding: 20px 16px;
   text-align: center;
-  background: linear-gradient(
-    135deg,
-    var(--verde),
-    var(--verde-oscuro)
-  );
+  background: linear-gradient(135deg, var(--verde), var(--verde-oscuro));
   border-bottom: 4px solid var(--rojo);
 }
 
@@ -55,16 +51,12 @@ body {
 
 /* ===== CARD ===== */
 .card {
-  background: linear-gradient(
-    180deg,
-    var(--card),
-    var(--verde-oscuro)
-  );
+  background: linear-gradient(180deg, var(--card), var(--verde-oscuro));
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.05);
   box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-  transition: transform 0.2s ease;
+  transition: transform 0.15s ease;
 }
 
 .card:active {
@@ -82,7 +74,7 @@ body {
 .viewer {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle, #000, #020617);
+  background: radial-gradient(circle, #000000, #020617);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,8 +108,9 @@ body {
   right: 14px;
   font-size: 28px;
   background: none;
-  color: var(--rojo-suave);
+  color: var(--rojo);
   border: none;
+  cursor: pointer;
 }
 
 /* ===== UTIL ===== */
