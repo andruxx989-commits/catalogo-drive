@@ -1,102 +1,36 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbyfW_TpkpBrRvJLeKeZfBuCJXjKKDXiORng98GpRHMZG24kkbmJbZTr6FNS46V0Wxuv/exec";
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Catálogo Marinillos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-const albumsContainer = document.getElementById("albums");
-const photosContainer = document.getElementById("photos");
-const subtitle = document.getElementById("subtitle");
-const backBtn = document.getElementById("backBtn");
-const viewer = document.getElementById("viewer");
-const viewerImg = document.getElementById("viewerImg");
+<header>
+  <h1>📸 Catálogo Marinillos</h1>
+  <p id="subtitle">Selecciona un álbum</p>
+  <button id="backBtn" onclick="goBack()">← Volver</button>
+</header>
 
-let photos = [];
-let currentIndex = 0;
+<main>
+  <div id="albums" class="grid"></div>
+  <div id="photos" class="grid hidden"></div>
+</main>
 
-/* ===== CARGAR DATOS ===== */
-fetch(API_URL)
-  .then(res => res.json())
-  .then(data => {
-    photos = data.items;
-    renderAlbum();
-  });
+<footer>
+  <p>© Catálogo dinámico con Google Drive</p>
+</footer>
 
-/* ===== MOSTRAR ÁLBUM ÚNICO ===== */
-function renderAlbum() {
-  albumsContainer.innerHTML = "";
-  albumsContainer.classList.remove("hidden");
-  photosContainer.classList.add("hidden");
-  backBtn.style.display = "none";
+<div id="viewer" class="viewer hidden">
+  <button class="close" onclick="closeViewer()">✕</button>
+  <button class="nav left" onclick="prevImage()">‹</button>
+  <img id="viewerImg" alt="">
+  <button class="nav right" onclick="nextImage()">›</button>
+</div>
 
-  subtitle.textContent = "Selecciona un álbum";
-
-  const card = document.createElement("div");
-  card.className = "card";
-
-  const img = document.createElement("img");
-  img.src = photos[0].img;
-  img.alt = "Catálogo";
-
-  img.onclick = openAlbum;
-
-  card.appendChild(img);
-  albumsContainer.appendChild(card);
-}
-
-/* ===== ABRIR ÁLBUM ===== */
-function openAlbum() {
-  albumsContainer.classList.add("hidden");
-  photosContainer.classList.remove("hidden");
-  backBtn.style.display = "inline-block";
-
-  subtitle.textContent = "Catálogo";
-
-  photosContainer.innerHTML = "";
-
-  let i = 0;
-  function loadNext() {
-    if (i >= photos.length) return;
-
-    const card = document.createElement("div");
-    card.className = "card";
-
-    const img = document.createElement("img");
-    img.loading = "lazy";
-    img.src = photos[i].img;
-    img.alt = photos[i].nombre;
-
-    const index = i;
-    img.onclick = () => openViewer(index);
-
-    card.appendChild(img);
-    photosContainer.appendChild(card);
-
-    i++;
-    setTimeout(loadNext, 120);
-  }
-
-  loadNext();
-}
-
-/* ===== BOTÓN ATRÁS ===== */
-function goBack() {
-  renderAlbum();
-}
-
-/* ===== VISOR ===== */
-function openViewer(index) {
-  currentIndex = index;
-  viewerImg.src = photos[index].img;
-  viewer.classList.remove("hidden");
-}
-
-function closeViewer() {
-  viewer.classList.add("hidden");
-}
-
-function nextImage() {
-  currentIndex = (currentIndex + 1) % photos.length;
-  viewerImg.src = photos[currentIndex].img;
-}
-
-function prevImage() {
-  currentIndex = (currentIndex - 1 + photos.length) % photos.length;
-  viewerImg.src = photos[currentIndex].img;
-}
+<script src="app.js"></script>
+</body>
+</html>
