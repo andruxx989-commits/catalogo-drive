@@ -1,89 +1,75 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbyfW_TpkpBrRvJLeKeZfBuCJXjKKDXiORng98GpRHMZG24kkbmJbZTr6FNS46V0Wxuv/exec";
 
-const albumsContainer = document.getElementById("albums");
-const photosContainer = document.getElementById("photos");
+const albumsDiv = document.getElementById("albums");
+const photosDiv = document.getElementById("photos");
 const subtitle = document.getElementById("subtitle");
 const backBtn = document.getElementById("backBtn");
+
 const viewer = document.getElementById("viewer");
 const viewerImg = document.getElementById("viewerImg");
 
-let photos = [];
+let dataGlobal = [];
+let currentImages = [];
 let currentIndex = 0;
 
-/* ===== CARGAR DATOS ===== */
 fetch(API_URL)
-  .then(res => res.json())
+  .then(r => r.json())
   .then(data => {
-    photos = data.items;
-    renderAlbum();
+    dataGlobal = data;
+    renderAlbums();
   });
 
-/* ===== MOSTRAR ÁLBUM ÚNICO ===== */
-function renderAlbum() {
-  albumsContainer.innerHTML = "";
-  albumsContainer.classList.remove("hidden");
-  photosContainer.classList.add("hidden");
-  backBtn.style.display = "none";
+function renderAlbums() {
+  albumsDiv.innerHTML = "";
+  photosDiv.classList.add("hidden");
+  albumsDiv.classList.remove("hidden");
 
   subtitle.textContent = "Selecciona un álbum";
+  backBtn.style.display = "none";
 
-  const card = document.createElement("div");
-  card.className = "card";
-
-  const img = document.createElement("img");
-  img.src = photos[0].img;
-  img.alt = "Catálogo";
-
-  img.onclick = openAlbum;
-
-  card.appendChild(img);
-  albumsContainer.appendChild(card);
-}
-
-/* ===== ABRIR ÁLBUM ===== */
-function openAlbum() {
-  albumsContainer.classList.add("hidden");
-  photosContainer.classList.remove("hidden");
-  backBtn.style.display = "inline-block";
-
-  subtitle.textContent = "Catálogo";
-
-  photosContainer.innerHTML = "";
-
-  let i = 0;
-  function loadNext() {
-    if (i >= photos.length) return;
-
+  dataGlobal.forEach(album => {
     const card = document.createElement("div");
     card.className = "card";
-
-    const img = document.createElement("img");
-    img.loading = "lazy";
-    img.src = photos[i].img;
-    img.alt = photos[i].nombre;
-
-    const index = i;
-    img.onclick = () => openViewer(index);
-
-    card.appendChild(img);
-    photosContainer.appendChild(card);
-
-    i++;
-    setTimeout(loadNext, 120);
-  }
-
-  loadNext();
+    card.innerHTML = `
+      <img src="${album.portada}">
+      <div class="info">${album.album}</div>
+    `;
+    card.onclick = () => openAlbum(album);
+    albumsDiv.appendChild(card);
+  });
 }
 
-/* ===== BOTÓN ATRÁS ===== */
+function openAlbum(album) {
+  albumsDiv.classList.add("hidden");
+  photosDiv.classList.remove("hidden");
+  photosDiv.innerHTML = "";
+
+  subtitle.textContent = album.album;
+  backBtn.style.display = "inline-block";
+
+  currentImages = album.items;
+
+  album.items.forEach((item, index) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${item.img}">
+      <div class="info">${item.nombre}</div>
+    `;
+    card.onclick = () => openViewer(index);
+    photosDiv.appendChild(card);
+  });
+}
+
 function goBack() {
-  renderAlbum();
+  renderAlbums();
 }
 
 /* ===== VISOR ===== */
+
 function openViewer(index) {
   currentIndex = index;
-  viewerImg.src = photos[index].img;
+  viewerImg.src = currentImages[currentIndex].img;
   viewer.classList.remove("hidden");
 }
 
@@ -92,11 +78,12 @@ function closeViewer() {
 }
 
 function nextImage() {
-  currentIndex = (currentIndex + 1) % photos.length;
-  viewerImg.src = photos[currentIndex].img;
+  currentIndex = (currentIndex + 1) % currentImages.length;
+  viewerImg.src = currentImages[currentIndex].img;
 }
 
 function prevImage() {
-  currentIndex = (currentIndex - 1 + photos.length) % photos.length;
-  viewerImg.src = photos[currentIndex].img;
+  currentIndex =
+    (currentIndex - 1 + currentImages.length) % currentImages.length;
+  viewerImg.src = currentImages[currentIndex].img;
 }
