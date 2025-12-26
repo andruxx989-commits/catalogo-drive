@@ -8,6 +8,7 @@ body {
   background: radial-gradient(circle at top, #111827, #020617);
   color: #ffffff;
   min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ===== HEADER ===== */
@@ -28,13 +29,14 @@ h1 {
 
 #backBtn {
   margin-top: 15px;
-  padding: 8px 18px;
+  padding: 10px 22px;
   border-radius: 20px;
   border: none;
   cursor: pointer;
   background: #2563eb;
   color: white;
   display: none;
+  font-size: 0.9rem;
 }
 
 /* ===== MAIN ===== */
@@ -140,4 +142,69 @@ footer {
 
 .viewer .right {
   right: 30px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+
+  main {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .card img {
+    height: 160px;
+  }
+
+  .info {
+    font-size: 0.85rem;
+  }
+
+  #backBtn {
+    padding: 10px 22px;
+    font-size: 0.9rem;
+  }
+
+  .viewer img {
+    max-width: 95%;
+    max-height: 75%;
+  }
+
+  .viewer .nav {
+    font-size: 45px;
+  }
+
+  .viewer .left {
+    left: 10px;
+  }
+
+  .viewer .right {
+    right: 10px;
+  }
+
+  .viewer .close {
+    top: 15px;
+    right: 20px;
+    font-size: 26px;
+  }
+}
+
+/* ===== CELULARES PEQUEÑOS ===== */
+@media (max-width: 420px) {
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card img {
+    height: 200px;
+  }
 }
