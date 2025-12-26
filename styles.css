@@ -1,207 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap');
+
 * {
   box-sizing: border-box;
-  font-family: "Segoe UI", system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
+/* ===== COLORES BASE ===== */
+:root {
+  --verde-oscuro: #0f2f25;
+  --verde: #1f7a63;
+  --verde-claro: #2fa68a;
+  --rojo: #b91c1c;
+  --rojo-suave: #dc2626;
+  --fondo: #0b1f18;
+  --card: #12362b;
+  --texto: #f1f5f4;
+}
+
+/* ===== BODY ===== */
 body {
-  margin: 0;
-  background: radial-gradient(circle at top, #111827, #020617);
-  color: #ffffff;
-  min-height: 100vh;
-  -webkit-tap-highlight-color: transparent;
+  background: linear-gradient(180deg, var(--verde-oscuro), var(--fondo));
+  color: var(--texto);
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 /* ===== HEADER ===== */
-header {
+.top {
+  padding: 20px 16px;
   text-align: center;
-  padding: 30px 20px;
+  background: linear-gradient(
+    135deg,
+    var(--verde),
+    var(--verde-oscuro)
+  );
+  border-bottom: 4px solid var(--rojo);
 }
 
-h1 {
-  margin: 0;
-  font-size: 2.3rem;
-}
-
-#subtitle {
-  margin-top: 8px;
-  opacity: 0.7;
-}
-
-#backBtn {
-  margin-top: 15px;
-  padding: 10px 22px;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-  background: #2563eb;
+/* ===== MARCA ===== */
+.brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
   color: white;
-  display: none;
-  font-size: 0.9rem;
-}
-
-/* ===== MAIN ===== */
-main {
-  padding: 30px;
 }
 
 /* ===== GRID ===== */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+  padding: 16px;
 }
 
 /* ===== CARD ===== */
 .card {
-  background: rgba(255,255,255,0.05);
-  border-radius: 18px;
+  background: linear-gradient(
+    180deg,
+    var(--card),
+    var(--verde-oscuro)
+  );
+  border-radius: 16px;
   overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  transition: transform 0.2s ease;
 }
 
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+.card:active {
+  transform: scale(0.97);
 }
 
 .card img {
   width: 100%;
-  height: 220px;
+  height: 180px;
   object-fit: cover;
-}
-
-.info {
-  padding: 12px;
-  text-align: center;
-  font-size: 0.95rem;
-  opacity: 0.9;
-}
-
-/* ===== UTIL ===== */
-.hidden {
-  display: none;
-}
-
-/* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 0.8rem;
-  opacity: 0.5;
+  display: block;
 }
 
 /* ===== VISOR ===== */
 .viewer {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.9);
+  background: radial-gradient(circle, #000, #020617);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
-}
-
-.viewer.hidden {
-  display: none;
+  z-index: 300;
 }
 
 .viewer img {
   max-width: 90%;
-  max-height: 85%;
+  max-height: 90%;
   border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  border: 3px solid var(--verde-claro);
 }
 
-/* ===== VISOR BOTONES ===== */
-.viewer .close {
+/* ===== BOTONES VISOR ===== */
+.nav {
   position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 30px;
+  top: 50%;
+  font-size: 42px;
   background: none;
   color: white;
   border: none;
   cursor: pointer;
 }
 
-.viewer .nav {
+.left { left: 14px; }
+.right { right: 14px; }
+
+.close-viewer {
   position: absolute;
-  font-size: 60px;
+  top: 12px;
+  right: 14px;
+  font-size: 28px;
   background: none;
-  color: white;
+  color: var(--rojo-suave);
   border: none;
-  cursor: pointer;
-  user-select: none;
 }
 
-.viewer .left {
-  left: 30px;
-}
-
-.viewer .right {
-  right: 30px;
+/* ===== UTIL ===== */
+.hidden {
+  display: none !important;
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-
-  main {
-    padding: 15px;
-  }
-
-  h1 {
+@media (max-width: 480px) {
+  .brand {
     font-size: 1.7rem;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-
-  .card img {
-    height: 160px;
-  }
-
-  .info {
-    font-size: 0.85rem;
-  }
-
-  #backBtn {
-    padding: 10px 22px;
-    font-size: 0.9rem;
-  }
-
-  .viewer img {
-    max-width: 95%;
-    max-height: 75%;
-  }
-
-  .viewer .nav {
-    font-size: 45px;
-  }
-
-  .viewer .left {
-    left: 10px;
-  }
-
-  .viewer .right {
-    right: 10px;
-  }
-
-  .viewer .close {
-    top: 15px;
-    right: 20px;
-    font-size: 26px;
-  }
-}
-
-/* ===== CELULARES PEQUEÑOS ===== */
-@media (max-width: 420px) {
-
-  .grid {
-    grid-template-columns: 1fr;
   }
 
   .card img {
