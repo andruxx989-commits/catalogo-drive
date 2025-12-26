@@ -1,106 +1,87 @@
 * {
   box-sizing: border-box;
-  font-family: "Segoe UI", system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
-  margin: 0;
-  background: radial-gradient(circle at top, #111827, #020617);
-  color: #ffffff;
+  background: #0f172a;
+  color: white;
   min-height: 100vh;
-  -webkit-tap-highlight-color: transparent;
 }
 
 /* ===== HEADER ===== */
 header {
   text-align: center;
-  padding: 30px 20px;
+  padding: 20px 15px;
 }
 
 h1 {
-  margin: 0;
-  font-size: 2.3rem;
+  font-size: 1.8rem;
 }
 
 #subtitle {
-  margin-top: 8px;
-  opacity: 0.7;
+  margin-top: 6px;
+  opacity: 0.8;
 }
 
 #backBtn {
-  margin-top: 15px;
-  padding: 10px 22px;
+  margin-top: 12px;
+  padding: 10px 20px;
   border-radius: 20px;
   border: none;
-  cursor: pointer;
   background: #2563eb;
   color: white;
   display: none;
-  font-size: 0.9rem;
 }
 
 /* ===== MAIN ===== */
 main {
-  padding: 30px;
+  padding: 15px;
 }
 
-/* ===== GRID ===== */
+/* ===== GRID FORZADO ===== */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 25px;
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 14px !important;
 }
 
 /* ===== CARD ===== */
 .card {
-  background: rgba(255,255,255,0.05);
-  border-radius: 18px;
+  background: #020617;
+  border-radius: 14px;
   overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
 }
 
 .card img {
   width: 100%;
-  height: 220px;
+  height: 160px;
   object-fit: cover;
 }
 
 .info {
-  padding: 12px;
+  padding: 10px;
   text-align: center;
-  font-size: 0.95rem;
-  opacity: 0.9;
+  font-size: 0.85rem;
 }
 
-/* ===== UTIL ===== */
+/* ===== OCULTO ===== */
 .hidden {
   display: none;
-}
-
-/* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 0.8rem;
-  opacity: 0.5;
 }
 
 /* ===== VISOR ===== */
 .viewer {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.95);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
+  z-index: 999;
 }
 
 .viewer.hidden {
@@ -108,100 +89,37 @@ footer {
 }
 
 .viewer img {
-  max-width: 90%;
-  max-height: 85%;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  max-width: 95%;
+  max-height: 80%;
+  border-radius: 12px;
 }
 
-/* ===== VISOR BOTONES ===== */
+/* ===== BOTONES VISOR ===== */
 .viewer .close {
   position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 30px;
+  top: 15px;
+  right: 18px;
+  font-size: 28px;
   background: none;
   color: white;
   border: none;
-  cursor: pointer;
 }
 
 .viewer .nav {
   position: absolute;
-  font-size: 60px;
+  font-size: 40px;
   background: none;
   color: white;
   border: none;
-  cursor: pointer;
-  user-select: none;
 }
 
-.viewer .left {
-  left: 30px;
-}
+.viewer .left { left: 10px; }
+.viewer .right { right: 10px; }
 
-.viewer .right {
-  right: 30px;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-
-  main {
-    padding: 15px;
-  }
-
-  h1 {
-    font-size: 1.7rem;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-
-  .card img {
-    height: 160px;
-  }
-
-  .info {
-    font-size: 0.85rem;
-  }
-
-  #backBtn {
-    padding: 10px 22px;
-    font-size: 0.9rem;
-  }
-
-  .viewer img {
-    max-width: 95%;
-    max-height: 75%;
-  }
-
-  .viewer .nav {
-    font-size: 45px;
-  }
-
-  .viewer .left {
-    left: 10px;
-  }
-
-  .viewer .right {
-    right: 10px;
-  }
-
-  .viewer .close {
-    top: 15px;
-    right: 20px;
-    font-size: 26px;
-  }
-}
-
-/* ===== CELULARES PEQUEÑOS ===== */
+/* ===== CELULARES MUY PEQUEÑOS ===== */
 @media (max-width: 420px) {
-
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
 
   .card img {
