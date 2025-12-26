@@ -1,27 +1,24 @@
-// 🔗 URL de tu Google Apps Script
 const API_URL = "https://script.google.com/macros/s/AKfycbyfW_TpkpBrRvJLeKeZfBuCJXjKKDXiORng98GpRHMZG24kkbmJbZTr6FNS46V0Wxuv/exec";
 
-// 🎯 Referencias del DOM
 const albumsDiv = document.getElementById("albums");
 const photosDiv = document.getElementById("photos");
 const subtitle = document.getElementById("subtitle");
 const backBtn = document.getElementById("backBtn");
 
-let dataGlobal = [];
+const viewer = document.getElementById("viewer");
+const viewerImg = document.getElementById("viewerImg");
 
-// 🚀 Cargar datos del catálogo
+let dataGlobal = [];
+let currentImages = [];
+let currentIndex = 0;
+
 fetch(API_URL)
-  .then(response => response.json())
+  .then(r => r.json())
   .then(data => {
     dataGlobal = data;
     renderAlbums();
-  })
-  .catch(err => {
-    albumsDiv.innerHTML = "<p>Error cargando el catálogo</p>";
-    console.error(err);
   });
 
-// 📁 Mostrar álbumes
 function renderAlbums() {
   albumsDiv.innerHTML = "";
   photosDiv.classList.add("hidden");
@@ -34,7 +31,7 @@ function renderAlbums() {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-      <img src="${album.portada}" alt="${album.album}">
+      <img src="${album.portada}">
       <div class="info">${album.album}</div>
     `;
     card.onclick = () => openAlbum(album);
@@ -42,7 +39,6 @@ function renderAlbums() {
   });
 }
 
-// 🖼️ Abrir álbum
 function openAlbum(album) {
   albumsDiv.classList.add("hidden");
   photosDiv.classList.remove("hidden");
@@ -51,18 +47,43 @@ function openAlbum(album) {
   subtitle.textContent = album.album;
   backBtn.style.display = "inline-block";
 
-  album.items.forEach(item => {
+  currentImages = album.items;
+
+  album.items.forEach((item, index) => {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-      <img src="${item.img}" alt="${item.nombre}">
+      <img src="${item.img}">
       <div class="info">${item.nombre}</div>
     `;
+    card.onclick = () => openViewer(index);
     photosDiv.appendChild(card);
   });
 }
 
-// ⬅ Volver a álbumes
 function goBack() {
   renderAlbums();
+}
+
+/* ===== VISOR ===== */
+
+function openViewer(index) {
+  currentIndex = index;
+  viewerImg.src = currentImages[currentIndex].img;
+  viewer.classList.remove("hidden");
+}
+
+function closeViewer() {
+  viewer.classList.add("hidden");
+}
+
+function nextImage() {
+  currentIndex = (currentIndex + 1) % currentImages.length;
+  viewerImg.src = currentImages[currentIndex].img;
+}
+
+function prevImage() {
+  currentIndex =
+    (currentIndex - 1 + currentImages.length) % currentImages.length;
+  viewerImg.src = currentImages[currentIndex].img;
 }
