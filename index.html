@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- CLAVE PARA MÓVIL -->
+  <!-- CLAVE PARA CELULAR -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Catálogo Profesional</title>
+  <title>Catálogo</title>
 
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -17,23 +17,10 @@
 </header>
 
 <main>
-  <!-- AQUÍ VAN LAS FOTOS -->
   <div id="photos" class="grid"></div>
 </main>
 
-<!-- BOTÓN FLOTANTE -->
-<button id="openAlbums" class="album-btn">📂 Álbumes</button>
-
-<!-- MODAL DE ÁLBUMES -->
-<div id="albumModal" class="modal hidden">
-  <div class="modal-box">
-    <h2>Selecciona un álbum</h2>
-    <div id="albumList" class="album-list"></div>
-    <button id="closeModal" class="close-btn">Cerrar</button>
-  </div>
-</div>
-
-<!-- VISOR (OCULTO DESDE EL INICIO) -->
+<!-- VISOR -->
 <div id="viewer" class="viewer hidden">
   <button class="nav left" onclick="prev()">‹</button>
   <img id="viewerImg">
