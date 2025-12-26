@@ -9,19 +9,30 @@
 <body>
 
   <header>
-    <h1>📸 Catálogo Profesional</h1>
+    <h1>📸 Catálogo</h1>
     <p id="subtitle">Selecciona un álbum</p>
     <button id="backBtn" onclick="goBack()">← Volver</button>
   </header>
 
   <main>
+    <!-- Álbumes -->
     <div id="albums" class="grid"></div>
+
+    <!-- Fotos -->
     <div id="photos" class="grid hidden"></div>
   </main>
 
   <footer>
     <p>© Catálogo dinámico con Google Drive</p>
   </footer>
+
+  <!-- Visor de imágenes -->
+  <div id="viewer" class="viewer hidden">
+    <button class="close" onclick="closeViewer()">✕</button>
+    <button class="nav left" onclick="prevImage()">‹</button>
+    <img id="viewerImg" />
+    <button class="nav right" onclick="nextImage()">›</button>
+  </div>
 
   <script src="app.js"></script>
 </body>
