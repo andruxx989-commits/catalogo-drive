@@ -38,68 +38,11 @@ body {
   display: block;
 }
 
-/* BOTÓN ÁLBUMES */
-.album-btn {
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
-  background: #22c55e;
-  color: black;
-  border: none;
-  padding: 14px 18px;
-  border-radius: 50px;
-  font-size: 16px;
-  z-index: 100;
-}
-
-/* MODAL */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-}
-
-.modal-box {
-  background: #020617;
-  width: 90%;
-  max-width: 320px;
-  padding: 20px;
-  border-radius: 18px;
-  text-align: center;
-}
-
-.album-list {
-  display: grid;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.album-item {
-  background: #1e293b;
-  padding: 14px;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-.close-btn {
-  margin-top: 14px;
-  padding: 10px;
-  width: 100%;
-  border-radius: 20px;
-  border: none;
-  background: #ef4444;
-  color: white;
-}
-
 /* VISOR */
 .viewer {
   position: fixed;
   inset: 0;
-  background: black;
+  background: rgba(0,0,0,.95);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,7 +76,7 @@ body {
   border: none;
 }
 
-/* 🔥 ARREGLO FINAL */
+/* OCULTAR */
 .hidden {
   display: none !important;
 }
