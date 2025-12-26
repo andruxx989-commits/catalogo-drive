@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catálogo Profesional</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header>
+    <h1>📸 Catálogo Profesional</h1>
+    <p id="subtitle">Selecciona un álbum</p>
+    <button id="backBtn" onclick="goBack()">← Volver</button>
+  </header>
+
+  <main>
+    <div id="albums" class="grid"></div>
+    <div id="photos" class="grid hidden"></div>
+  </main>
+
+  <footer>
+    <p>© Catálogo dinámico con Google Drive</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
