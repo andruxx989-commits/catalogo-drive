@@ -63,10 +63,6 @@ body {
   z-index: 200;
 }
 
-.hidden {
-  display: none;
-}
-
 .modal-box {
   background: #020617;
   width: 90%;
@@ -135,4 +131,9 @@ body {
   background: none;
   color: white;
   border: none;
+}
+
+/* 🔥 ARREGLO FINAL */
+.hidden {
+  display: none !important;
 }
