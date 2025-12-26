@@ -13,6 +13,11 @@ let allPhotos = [];
 let current = [];
 let index = 0;
 
+/* 🚫 ASEGURAR VISOR OCULTO */
+document.addEventListener("DOMContentLoaded", () => {
+  viewer.classList.add("hidden");
+});
+
 /* MODAL */
 openAlbums.onclick = () => albumModal.classList.remove("hidden");
 closeModal.onclick = () => albumModal.classList.add("hidden");
