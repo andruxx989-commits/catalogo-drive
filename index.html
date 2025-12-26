@@ -3,28 +3,28 @@
 <head>
   <meta charset="UTF-8" />
 
-  <!-- 🔑 CLAVE PARA QUE FUNCIONE EN CELULAR -->
+  <!-- 🔑 CLAVE PARA CELULAR -->
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <title>Catálogo Marinillos</title>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <header class="top">
-    <h1 class="brand">Catálogo Marinillos</h1>
-    <!-- Si luego quieres volver a usar álbumes, este texto sigue sirviendo -->
-    <p id="subtitle">Explora nuestros productos</p>
+  <header>
+    <h1>📸 Catálogo Marinillos</h1>
+    <p id="subtitle">Selecciona un álbum</p>
 
-    <!-- Botón volver (queda oculto si no se usa) -->
-    <button id="backBtn" onclick="goBack()" class="hidden">← Volver</button>
+    <!-- BOTÓN ATRÁS -->
+    <button id="backBtn" onclick="goBack()" class="hidden">
+      ← Atrás
+    </button>
   </header>
 
   <main>
-    <!-- Álbumes (si tu JS los usa, aquí aparecen) -->
+    <!-- Álbumes -->
     <div id="albums" class="grid"></div>
 
     <!-- Fotos -->
@@ -35,7 +35,7 @@
     <p>© Catálogo Marinillos</p>
   </footer>
 
-  <!-- ===== VISOR DE IMÁGENES ===== -->
+  <!-- VISOR -->
   <div id="viewer" class="viewer hidden">
     <button class="close-viewer" onclick="closeViewer()">✕</button>
     <button class="nav left" onclick="prevImage()">‹</button>
@@ -43,8 +43,6 @@
     <button class="nav right" onclick="nextImage()">›</button>
   </div>
 
-  <!-- JS (SIEMPRE AL FINAL) -->
   <script src="app.js"></script>
-
 </body>
 </html>
