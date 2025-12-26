@@ -1,75 +1,63 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbyfW_TpkpBrRvJLeKeZfBuCJXjKKDXiORng98GpRHMZG24kkbmJbZTr6FNS46V0Wxuv/exec";
 
-const albumsDiv = document.getElementById("albums");
-const photosDiv = document.getElementById("photos");
-const subtitle = document.getElementById("subtitle");
-const backBtn = document.getElementById("backBtn");
+const photos = document.getElementById("photos");
+const albumModal = document.getElementById("albumModal");
+const albumList = document.getElementById("albumList");
+const openAlbums = document.getElementById("openAlbums");
+const closeModal = document.getElementById("closeModal");
 
 const viewer = document.getElementById("viewer");
 const viewerImg = document.getElementById("viewerImg");
 
-let dataGlobal = [];
-let currentImages = [];
-let currentIndex = 0;
+let allPhotos = [];
+let current = [];
+let index = 0;
 
+/* MODAL */
+openAlbums.onclick = () => albumModal.classList.remove("hidden");
+closeModal.onclick = () => albumModal.classList.add("hidden");
+
+/* CARGAR DATA */
 fetch(API_URL)
   .then(r => r.json())
   .then(data => {
-    dataGlobal = data;
-    renderAlbums();
+    allPhotos = data.items;
+
+    const albums = [...new Set(
+      allPhotos.map(f => f.nombre.split("_")[0])
+    )];
+
+    albumList.innerHTML = "";
+    albums.forEach(a => {
+      const div = document.createElement("div");
+      div.className = "album-item";
+      div.textContent = a;
+      div.onclick = () => openAlbum(a);
+      albumList.appendChild(div);
+    });
   });
 
-function renderAlbums() {
-  albumsDiv.innerHTML = "";
-  photosDiv.classList.add("hidden");
-  albumsDiv.classList.remove("hidden");
+/* ABRIR ÁLBUM */
+function openAlbum(name) {
+  albumModal.classList.add("hidden");
+  photos.innerHTML = "";
 
-  subtitle.textContent = "Selecciona un álbum";
-  backBtn.style.display = "none";
+  current = allPhotos.filter(f =>
+    f.nombre.startsWith(name + "_")
+  );
 
-  dataGlobal.forEach(album => {
+  current.forEach((f, i) => {
     const card = document.createElement("div");
     card.className = "card";
-    card.innerHTML = `
-      <img src="${album.portada}">
-      <div class="info">${album.album}</div>
-    `;
-    card.onclick = () => openAlbum(album);
-    albumsDiv.appendChild(card);
+    card.innerHTML = `<img src="${f.img}" onclick="openViewer(${i})">`;
+    photos.appendChild(card);
   });
 }
 
-function openAlbum(album) {
-  albumsDiv.classList.add("hidden");
-  photosDiv.classList.remove("hidden");
-  photosDiv.innerHTML = "";
-
-  subtitle.textContent = album.album;
-  backBtn.style.display = "inline-block";
-
-  currentImages = album.items;
-
-  album.items.forEach((item, index) => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <img src="${item.img}">
-      <div class="info">${item.nombre}</div>
-    `;
-    card.onclick = () => openViewer(index);
-    photosDiv.appendChild(card);
-  });
-}
-
-function goBack() {
-  renderAlbums();
-}
-
-/* ===== VISOR ===== */
-
-function openViewer(index) {
-  currentIndex = index;
-  viewerImg.src = currentImages[currentIndex].img;
+/* VISOR */
+function openViewer(i) {
+  index = i;
+  viewerImg.src = current[index].img;
   viewer.classList.remove("hidden");
 }
 
@@ -77,13 +65,12 @@ function closeViewer() {
   viewer.classList.add("hidden");
 }
 
-function nextImage() {
-  currentIndex = (currentIndex + 1) % currentImages.length;
-  viewerImg.src = currentImages[currentIndex].img;
+function next() {
+  index = (index + 1) % current.length;
+  viewerImg.src = current[index].img;
 }
 
-function prevImage() {
-  currentIndex =
-    (currentIndex - 1 + currentImages.length) % currentImages.length;
-  viewerImg.src = currentImages[currentIndex].img;
+function prev() {
+  index = (index - 1 + current.length) % current.length;
+  viewerImg.src = current[index].img;
 }
