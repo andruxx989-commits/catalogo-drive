@@ -25,7 +25,7 @@ function renderAlbums() {
   albumsDiv.classList.remove("hidden");
 
   subtitle.textContent = "Selecciona un álbum";
-  backBtn.style.display = "none";
+  backBtn.classList.add("hidden");  // OCULTAR con clase hidden
 
   dataGlobal.forEach(album => {
     const card = document.createElement("div");
@@ -45,7 +45,7 @@ function openAlbum(album) {
   photosDiv.innerHTML = "";
 
   subtitle.textContent = album.album;
-  backBtn.style.display = "inline-block";
+  backBtn.classList.remove("hidden");  // MOSTRAR quitando clase hidden
 
   currentImages = album.items;
 
@@ -83,7 +83,6 @@ function nextImage() {
 }
 
 function prevImage() {
-  currentIndex =
-    (currentIndex - 1 + currentImages.length) % currentImages.length;
+  currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
   viewerImg.src = currentImages[currentIndex].img;
 }
