@@ -31,6 +31,7 @@ body {
   text-align: center;
   background: linear-gradient(135deg, var(--verde), var(--verde-oscuro));
   border-bottom: 4px solid var(--rojo);
+  position: relative; /* Para posicionar el botón de retroceso */
 }
 
 /* ===== MARCA ===== */
@@ -113,6 +114,27 @@ body {
   cursor: pointer;
 }
 
+/* ===== BOTÓN RETROCESO (añadido) ===== */
+#backBtn {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--rojo);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#backBtn:hover {
+  background: #d32f2f;
+}
+
 /* ===== UTIL ===== */
 .hidden {
   display: none !important;
@@ -126,5 +148,11 @@ body {
 
   .card img {
     height: 200px;
+  }
+
+  /* Ajuste del botón en móviles */
+  #backBtn {
+    padding: 6px 10px;
+    font-size: 0.9rem;
   }
 }
