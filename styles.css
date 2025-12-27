@@ -23,40 +23,76 @@ body {
   color: var(--texto);
   font-family: 'Inter', system-ui, sans-serif;
   min-height: 100vh;
+  padding-bottom: 60px; /* Espacio para el footer */
 }
 
 /* ===== HEADER ===== */
 .top {
-  padding: 20px 16px;
+  padding: 16px;
   text-align: center;
   background: linear-gradient(135deg, var(--verde), var(--verde-oscuro));
   border-bottom: 4px solid var(--rojo);
   position: relative;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* ===== MARCA ===== */
 .brand {
   font-family: 'Playfair Display', serif;
-  font-size: 2rem;
+  font-size: 1.8rem;
   letter-spacing: 1px;
   color: white;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+#subtitle {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+/* ===== BOTÓN RETROCESO ===== */
+#backBtn {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  background: var(--rojo);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: inline-block !important;
+  font-size: 0.9rem;
+  z-index: 10;
+}
+
+#backBtn:hover {
+  background: #d32f2f;
 }
 
 /* ===== GRID ===== */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
   padding: 16px;
 }
 
 /* ===== CARD ===== */
 .card {
   background: linear-gradient(180deg, var(--card), var(--verde-oscuro));
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.05);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
   transition: transform 0.15s ease;
 }
 
@@ -66,9 +102,21 @@ body {
 
 .card img {
   width: 100%;
-  height: 180px;
+  height: 150px;
   object-fit: cover;
   display: block;
+}
+
+.card .info {
+  padding: 10px;
+  font-size: 0.85rem;
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.3;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ===== VISOR ===== */
@@ -80,60 +128,67 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 300;
+  padding: 20px;
 }
 
 .viewer img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 16px;
+  max-width: 100%;
+  max-height: 80%;
+  border-radius: 12px;
   border: 3px solid var(--verde-claro);
+  object-fit: contain;
 }
 
 /* ===== BOTONES VISOR ===== */
 .nav {
   position: absolute;
   top: 50%;
-  font-size: 42px;
+  transform: translateY(-50%);
+  font-size: 36px;
   background: none;
   color: white;
   border: none;
   cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.left { left: 14px; }
-.right { right: 14px; }
+.left { left: 10px; }
+.right { right: 10px; }
 
 .close-viewer {
   position: absolute;
-  top: 12px;
-  right: 14px;
-  font-size: 28px;
-  background: none;
-  color: var(--rojo);
-  border: none;
-  cursor: pointer;
-}
-
-/* ===== BOTÓN RETROCESO (CORREGIDO) ===== */
-#backBtn {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--rojo);
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  background: rgba(0,0,0,0.5);
   color: white;
   border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
-  display: inline-block !important; /* FORZAR que sea visible cuando se quite la clase hidden */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 301;
 }
 
-#backBtn:hover {
-  background: #d32f2f;
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: var(--verde-oscuro);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 0.8rem;
+  opacity: 0.8;
 }
 
 /* ===== UTIL ===== */
@@ -142,17 +197,95 @@ body {
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 480px) {
-  .brand {
-    font-size: 1.7rem;
+/* Tablet */
+@media (min-width: 481px) and (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
   }
+  
+  .card img {
+    height: 180px;
+  }
+  
+  .brand {
+    font-size: 2rem;
+  }
+}
 
+/* Desktop */
+@media (min-width: 769px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 24px;
+  }
+  
   .card img {
     height: 200px;
   }
+  
+  .brand {
+    font-size: 2.2rem;
+  }
+  
+  #subtitle {
+    font-size: 1rem;
+  }
+  
+  .nav {
+    font-size: 42px;
+    width: 60px;
+    height: 60px;
+  }
+}
 
+/* Celulares muy pequeños */
+@media (max-width: 360px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    padding: 12px;
+  }
+  
+  .card img {
+    height: 130px;
+  }
+  
+  .brand {
+    font-size: 1.5rem;
+  }
+  
   #backBtn {
     padding: 6px 10px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    left: 12px;
+    top: 12px;
+  }
+  
+  .card .info {
+    font-size: 0.8rem;
+    padding: 8px;
+    min-height: 45px;
+  }
+}
+
+/* Ajustes para landscape */
+@media (max-height: 500px) and (orientation: landscape) {
+  .top {
+    min-height: 70px;
+    padding: 10px 16px;
+  }
+  
+  .brand {
+    font-size: 1.5rem;
+  }
+  
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+  
+  .card img {
+    height: 120px;
   }
 }
