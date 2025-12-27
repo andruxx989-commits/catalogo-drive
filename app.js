@@ -25,7 +25,11 @@ function renderAlbums() {
   albumsDiv.classList.remove("hidden");
 
   subtitle.textContent = "Selecciona un álbum";
-  backBtn.classList.add("hidden");  // OCULTAR con clase hidden
+  backBtn.classList.add("hidden");
+  
+  // Ajustar alineación del título cuando no hay botón
+  subtitle.style.textAlign = "center";
+  subtitle.style.paddingLeft = "0";
 
   dataGlobal.forEach(album => {
     const card = document.createElement("div");
@@ -45,7 +49,11 @@ function openAlbum(album) {
   photosDiv.innerHTML = "";
 
   subtitle.textContent = album.album;
-  backBtn.classList.remove("hidden");  // MOSTRAR quitando clase hidden
+  backBtn.classList.remove("hidden");
+  
+  // Ajustar alineación del título cuando hay botón
+  subtitle.style.textAlign = "left";
+  subtitle.style.paddingLeft = "40px";
 
   currentImages = album.items;
 
@@ -71,10 +79,12 @@ function openViewer(index) {
   currentIndex = index;
   viewerImg.src = currentImages[currentIndex].img;
   viewer.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
 }
 
 function closeViewer() {
   viewer.classList.add("hidden");
+  document.body.style.overflow = "auto";
 }
 
 function nextImage() {
@@ -86,3 +96,12 @@ function prevImage() {
   currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
   viewerImg.src = currentImages[currentIndex].img;
 }
+
+// Manejar teclas en el visor
+document.addEventListener('keydown', (e) => {
+  if (!viewer.classList.contains('hidden')) {
+    if (e.key === 'ArrowRight') nextImage();
+    if (e.key === 'ArrowLeft') prevImage();
+    if (e.key === 'Escape') closeViewer();
+  }
+});
